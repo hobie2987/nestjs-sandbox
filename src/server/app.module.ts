@@ -1,12 +1,11 @@
 import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
 import {AppController} from './app.controller';
-import {AppService} from './app.service';
-import {CsrfMiddleware} from "./middleware";
+import { CsrfMiddleware } from './middleware';
 
 @Module({
   imports: [],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [],
 })
 export class AppModule implements NestModule {
 
