@@ -6,7 +6,7 @@ export class AppController {
 
   @Get()
   root(): string {
-    const indexHTML = readFileSync('dist/index.html', {encoding: 'utf8'});
+    const indexHTML = readFileSync('dist/index.html', { encoding: 'utf8' });
 
 
     return indexHTML;
