@@ -11,7 +11,8 @@ async function bootstrap() {
   app.use(nocache());
   app.use(helmet());
   app.use(compression());
-  await app.listen(8080
-  );
+  await app.listen(8080, () => {
+    console.log('Server started @ http://localhost:8080/')
+  });
 }
 bootstrap();
