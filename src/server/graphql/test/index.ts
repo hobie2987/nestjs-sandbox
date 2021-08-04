@@ -1,1 +1,0 @@
-export { TestResolver } from './resolver/test.resolver';
