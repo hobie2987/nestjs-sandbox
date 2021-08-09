@@ -28,7 +28,9 @@ describe('AppController', () => {
   describe('index()', () => {
     it('should read the index.html file', () => {
       appController.index();
-      expect(fs.readFileSync).toHaveBeenCalledWith('dist/index.html', { encoding: 'utf8' });
+      expect(fs.readFileSync).toHaveBeenCalledWith('dist/index.html', {
+        encoding: 'utf8',
+      });
     });
 
     it('should return HTML', () => {

@@ -1,4 +1,9 @@
-import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
+import {
+  MiddlewareConsumer,
+  Module,
+  NestModule,
+  RequestMethod,
+} from '@nestjs/common';
 import { AppController } from './controllers';
 import { CsrfMiddleware } from './middleware';
 
@@ -8,9 +13,9 @@ import { CsrfMiddleware } from './middleware';
   providers: [],
 })
 export class AppModule implements NestModule {
-
   configure(consumer: MiddlewareConsumer): any {
-    consumer.apply(CsrfMiddleware)
-        .forRoutes({ path: '*', method: RequestMethod.ALL })
+    consumer
+      .apply(CsrfMiddleware)
+      .forRoutes({ path: '*', method: RequestMethod.ALL });
   }
 }
