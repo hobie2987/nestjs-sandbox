@@ -1,5 +1,5 @@
 import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
-import { AppController } from './app.controller';
+import { AppController } from './controllers';
 import { CsrfMiddleware } from './middleware';
 
 @Module({
