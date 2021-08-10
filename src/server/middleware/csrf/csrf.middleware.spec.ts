@@ -68,38 +68,67 @@ describe('CsrfMiddleware', () => {
       request.method = 'POST';
     });
 
-    it('Should send a 403 when the cookie does not exist on the request', () => {
-      request.cookies = {};
-      middleware.use(request, response, next);
-      expect(response.sendStatus).toHaveBeenCalledWith(HttpStatus.FORBIDDEN);
+    describe('And the XSRF-TOKEN cookie does not exist on the request', () => {
+      beforeEach(() => {
+        request.cookies = {};
+        middleware.use(request, response, next);
+      });
+
+      it('Should send a 403 FORBIDDEN status', () => {
+        expect(response.sendStatus).toHaveBeenCalledWith(HttpStatus.FORBIDDEN);
+      });
+
+      it('Should not call next', () => {
+        expect(next).not.toHaveBeenCalled();
+      });
     });
 
-    it('Should send a 403 when the X-XSRF-TOKEN header not exist on the request', () => {
-      request.cookies = { 'XSRF-TOKEN': TOKEN };
-      request.header.mockReturnValue(undefined);
-      middleware.use(request, response, next);
-      expect(response.sendStatus).toHaveBeenCalledWith(HttpStatus.FORBIDDEN);
+    describe('And the X-XSRF-TOKEN header does not exist on the request', () => {
+      beforeEach(() => {
+        request.cookies = { 'XSRF-TOKEN': TOKEN };
+        request.header.mockReturnValue(undefined);
+        middleware.use(request, response, next);
+      });
+
+      it('Should send a 403 FORBIDDEN status ', () => {
+        expect(response.sendStatus).toHaveBeenCalledWith(HttpStatus.FORBIDDEN);
+      });
+
+      it('Should not call next', () => {
+        expect(next).not.toHaveBeenCalled();
+      });
     });
 
-    it('Should send a 403 when the XSRF-TOKEN cookie value does not match the X-XSRF-TOKEN header', () => {
-      request.cookies = { 'XSRF-TOKEN': TOKEN };
-      request.header.mockReturnValue('ABC123DEF456GHI789JKL012MNO345PQ');
-      middleware.use(request, response, next);
-      expect(response.sendStatus).toHaveBeenCalledWith(HttpStatus.FORBIDDEN);
+    describe('And the XSRF-TOKEN cookie value does not match the X-XSRF-TOKEN header', () => {
+      beforeEach(() => {
+        request.cookies = { 'XSRF-TOKEN': TOKEN };
+        request.header.mockReturnValue('ABC123DEF456GHI789JKL012MNO345PQ');
+        middleware.use(request, response, next);
+      });
+
+      it('Should send a 403 FORBIDDEN status', () => {
+        expect(response.sendStatus).toHaveBeenCalledWith(HttpStatus.FORBIDDEN);
+      });
+
+      it('Should not call next', () => {
+        expect(next).not.toHaveBeenCalled();
+      });
     });
 
-    it('Should not send a 403 when the XSRF_TOKEN cookie value matched the X-XSRF-TOKEN header', () => {
-      request.cookies = { 'XSRF-TOKEN': TOKEN };
-      request.header.mockReturnValue(TOKEN);
-      middleware.use(request, response, next);
-      expect(response.sendStatus).not.toHaveBeenCalled();
-    });
+    describe('And then XSRF_TOKEN cookie value matches the X-XSRF-TOKEN header', () => {
+      beforeEach(() => {
+        request.cookies = { 'XSRF-TOKEN': TOKEN };
+        request.header.mockReturnValue(TOKEN);
+        middleware.use(request, response, next);
+      });
 
-    it('Should call next when the XSRF_TOKEN cookie value matched the X-XSRF-TOKEN header', () => {
-      request.cookies = { 'XSRF-TOKEN': TOKEN };
-      request.header.mockReturnValue(TOKEN);
-      middleware.use(request, response, next);
-      expect(next).toHaveBeenCalled();
+      it('Should not send a 403 FORBIDDEN status', () => {
+        expect(response.sendStatus).not.toHaveBeenCalled();
+      });
+
+      it('Should call next', () => {
+        expect(next).toHaveBeenCalled();
+      });
     });
   });
 });
