@@ -39,17 +39,20 @@ describe('CsrfMiddleware', () => {
       });
 
       it('Should set the XSRF-TOKEN cookie on the response', () => {
-        expect(response.cookie).toHaveBeenCalledWith('XSRF-TOKEN', TOKEN, { path: '/', secure: false });
+        expect(response.cookie).toHaveBeenCalledWith('XSRF-TOKEN', TOKEN, {
+          path: '/',
+          secure: false,
+        });
       });
 
       it('Should call next', () => {
         expect(next).toHaveBeenCalled();
-      })
+      });
     });
 
     describe('And the cookie does exist on the request', () => {
       beforeEach(() => {
-        request.cookies = {'XSRF-TOKEN': TOKEN};
+        request.cookies = { 'XSRF-TOKEN': TOKEN };
         middleware.use(request, response, next);
       });
 
