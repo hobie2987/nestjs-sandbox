@@ -1,1 +1,1 @@
-export { ServerUtils } from './server/server.utils';
+export * from './server/server.utils';
