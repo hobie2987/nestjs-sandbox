@@ -4,18 +4,25 @@ import {
   NestModule,
   RequestMethod,
 } from '@nestjs/common';
-import { AppController } from './controllers';
-import { CsrfMiddleware } from './middleware';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
+import { CONTROLLERS } from './controllers';
+import { CorrelationIdMiddleware, CsrfMiddleware, RequestLogMiddleware } from './middleware';
+import { SERVICES } from './services';
 
 @Module({
-  imports: [],
-  controllers: [AppController],
-  providers: [],
+  imports: [
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'assets')
+    })
+  ],
+  controllers: CONTROLLERS,
+  providers: SERVICES,
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer): any {
     consumer
-      .apply(CsrfMiddleware)
+      .apply(CorrelationIdMiddleware, RequestLogMiddleware, CsrfMiddleware)
       .forRoutes({ path: '*', method: RequestMethod.ALL });
   }
 }
