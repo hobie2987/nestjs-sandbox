@@ -14,7 +14,7 @@ export class RequestLogMiddleware implements NestMiddleware {
       method: req.method.toUpperCase(),
       protocol: req.protocol,
       path: req.originalUrl,
-      agent: req.header('User-Agent'),
+      agent: req.get('User-Agent'),
       token: req.cookies['XSRF-TOKEN'] || '-',
       correlationId: req.get('X-Correlation-Id') || res.get('X-Correlation-Id')
     });
