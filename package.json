@@ -30,6 +30,7 @@
     "@nestjs/platform-express": "^7.6.5",
     "@nestjs/serve-static": "^2.2.2",
     "apollo-server-express": "^2.19.1",
+    "axios": "^0.21.4",
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.5",
     "graphql": "^15.4.0",
