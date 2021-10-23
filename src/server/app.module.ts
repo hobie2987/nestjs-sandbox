@@ -7,7 +7,7 @@ import {
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { CONTROLLERS } from './controllers';
-import { CorrelationIdMiddleware, CsrfMiddleware, RequestLogMiddleware } from './middleware';
+import { CorrelationIdMiddleware, CsrfMiddleware, RequestLogMiddleware, SessionIdMiddleware } from './middleware';
 import { SERVICES } from './services';
 
 @Module({
@@ -22,7 +22,7 @@ import { SERVICES } from './services';
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer): any {
     consumer
-      .apply(CorrelationIdMiddleware, RequestLogMiddleware, CsrfMiddleware)
+      .apply(CorrelationIdMiddleware, SessionIdMiddleware, RequestLogMiddleware, CsrfMiddleware)
       .forRoutes({ path: '*', method: RequestMethod.ALL });
   }
 }
