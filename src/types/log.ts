@@ -8,6 +8,8 @@ export enum LogLevel {
 export enum LogCode {
   REQUEST = 0,
   EXCEPTION = 1,
+  HTTP_SUCCESS = 2,
+  HTTP_FAILURE = 3,
 }
 
 
@@ -27,5 +29,6 @@ export interface LogMessage {
   token?: string;
   correlationId?: string,
   error?: any;
+  duration?: string | number
 }
 
