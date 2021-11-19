@@ -1,8 +1,8 @@
-import { Test } from "@nestjs/testing";
-import axios, { AxiosResponse } from "axios";
+import { Test } from '@nestjs/testing';
+import axios, { AxiosResponse } from 'axios';
 import { HttpService } from './http.service';
 import { DEFAULT_CONFIG } from './default.config';
-import { LoggerService } from "../logger/logger.service";
+import { LoggerService } from '../logger/logger.service';
 import { LogCode, LogLevel } from '../../../types';
 
 describe('HttpService', () => {
@@ -16,7 +16,7 @@ describe('HttpService', () => {
     status: 200,
     statusText: 'OK',
     request: {},
-    headers: {}
+    headers: {},
   };
 
   beforeEach(async () => {
@@ -25,14 +25,17 @@ describe('HttpService', () => {
       providers: [
         { provide: LoggerService, useValue: { log: jest.fn() } },
         HttpService,
-      ]
+      ],
     }).compile();
 
     service = module.get(HttpService);
     logger = module.get(LoggerService);
 
     jest.spyOn(logger, 'log').mockImplementation();
-    jest.spyOn(Date, 'now').mockReturnValueOnce(startTime).mockReturnValueOnce(startTime + 1000);
+    jest
+      .spyOn(Date, 'now')
+      .mockReturnValueOnce(startTime)
+      .mockReturnValueOnce(startTime + 1000);
     jest.spyOn(axios, 'request').mockImplementation((config) => {
       axios.interceptors.request['handlers'][0].fulfilled(config); //set startTIme on config
       response.config = config;
@@ -65,8 +68,8 @@ describe('HttpService', () => {
         ...DEFAULT_CONFIG,
         method: 'GET',
         startTime,
-        url
-      })
+        url,
+      });
     });
 
     it('Should log to request was successful', () => {
@@ -80,7 +83,7 @@ describe('HttpService', () => {
         status: response.status,
         error: undefined,
         duration: 1000,
-      })
+      });
     });
 
     it('Should resolve with the response data', () => {
@@ -91,7 +94,7 @@ describe('HttpService', () => {
   describe('When performing a POST request', () => {
     const body = { user: 'User', password: 'Password' };
     beforeEach(async () => {
-      const data = await service.post(url, body);
+      await service.post(url, body);
     });
 
     it('Should set the request method as POST', () => {
@@ -100,8 +103,8 @@ describe('HttpService', () => {
         method: 'POST',
         data: body,
         startTime,
-        url
-      })
+        url,
+      });
     });
   });
 
@@ -113,9 +116,8 @@ describe('HttpService', () => {
       name: 'AxiosError',
       code: 500,
       request: {},
-      response: {}
+      response: {},
     };
-    let actual;
 
     beforeEach(async () => {
       jest.spyOn(axios, 'request').mockImplementation((config) => {
@@ -123,7 +125,7 @@ describe('HttpService', () => {
         error.config = config;
         return Promise.reject(error);
       });
-      actual = await service.get(url).catch((e) => e);
+      await service.get(url).catch((e) => e);
     });
 
     afterEach(() => {
@@ -140,17 +142,16 @@ describe('HttpService', () => {
         url: url,
         status: error.code,
         error: error,
-        duration: 1000
+        duration: 1000,
       });
     });
   });
 
   describe('When a generic error occurs', () => {
     const error = new Error('Oops, something broke');
-    let actual: any;
     beforeEach(async () => {
       jest.spyOn(axios, 'request').mockRejectedValue(error);
-      actual = await service.get(url).catch((e) => e);
+      await service.get(url).catch((e) => e);
     });
 
     it('Should log the error', () => {
@@ -163,8 +164,8 @@ describe('HttpService', () => {
         url: undefined,
         status: undefined,
         error: error,
-        duration: undefined
+        duration: undefined,
       });
     });
-  })
+  });
 });

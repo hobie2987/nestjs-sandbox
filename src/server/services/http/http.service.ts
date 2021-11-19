@@ -6,19 +6,22 @@ import { DEFAULT_CONFIG } from './default.config';
 
 @Injectable()
 export class HttpService {
-
   constructor(private logger: LoggerService) {
     axios.interceptors.request.use((config: AxiosRequestConfig) => {
-      config['startTime'] = Date.now()
+      config['startTime'] = Date.now();
     });
   }
 
   public get = (url: string): Promise<any> => this.request({ url });
-  public post = (url: string, data: any): Promise<any> => this.request({ url, method: 'POST', data });
+  public post = (url: string, data: any): Promise<any> =>
+    this.request({ url, method: 'POST', data });
 
   private async request(config: AxiosRequestConfig): Promise<any> {
     try {
-      const response: AxiosResponse = await axios.request({...DEFAULT_CONFIG, ...config});
+      const response: AxiosResponse = await axios.request({
+        ...DEFAULT_CONFIG,
+        ...config,
+      });
       this.log(LogLevel.INFO, LogCode.HTTP_SUCCESS, response);
       return response.data;
     } catch (error) {
@@ -28,7 +31,8 @@ export class HttpService {
   }
 
   private log(level: LogLevel, logCode: LogCode, response: any): void {
-    const { message, statusText, config, code, status, isAxiosError } = response
+    const { message, statusText, config, code, status, isAxiosError } =
+      response;
     const isError = response instanceof Error || isAxiosError;
     this.logger.log({
       level,
