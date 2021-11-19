@@ -3,7 +3,7 @@ export enum LogLevel {
   ERROR = 'error',
   INFO = 'info',
   LOG = 'log',
-  WARN = 'warn'
+  WARN = 'warn',
 }
 export enum LogCode {
   REQUEST = 0,
@@ -11,7 +11,6 @@ export enum LogCode {
   HTTP_SUCCESS = 2,
   HTTP_FAILURE = 3,
 }
-
 
 export interface LogMessage {
   // Required
@@ -27,8 +26,7 @@ export interface LogMessage {
   url?: string;
   agent?: string;
   token?: string;
-  correlationId?: string,
+  correlationId?: string;
   error?: any;
-  duration?: string | number
+  duration?: string | number;
 }
-

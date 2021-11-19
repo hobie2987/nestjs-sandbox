@@ -6,7 +6,7 @@ describe('LoggerService', () => {
   let logger: LoggerService;
   const message: LogMessage = {
     code: LogCode.REQUEST,
-    message: 'This is a test of our public broadcasting system'
+    message: 'This is a test of our public broadcasting system',
   };
 
   const validate = (level: LogLevel) => {
@@ -81,7 +81,7 @@ describe('LoggerService', () => {
     });
 
     it('Should log at the level provided in the log message', () => {
-      const errorMessage = {...message, ...{ level: LogLevel.ERROR }};
+      const errorMessage = { ...message, ...{ level: LogLevel.ERROR } };
       logger.log(errorMessage);
       validate(LogLevel.ERROR);
     });

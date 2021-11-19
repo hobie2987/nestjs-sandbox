@@ -51,7 +51,10 @@ describe('CorrelationIdMiddleware', () => {
     });
 
     it('Should generate a new Correlation ID and set the response header', () => {
-      expect(response.set).toHaveBeenCalledWith('X-Correlation-Id', CORRELATION_ID);
+      expect(response.set).toHaveBeenCalledWith(
+        'X-Correlation-Id',
+        CORRELATION_ID,
+      );
     });
 
     it('Should call next', () => {

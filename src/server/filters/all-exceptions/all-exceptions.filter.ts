@@ -1,4 +1,10 @@
-import { ExceptionFilter, Catch, ArgumentsHost, HttpException, HttpStatus } from '@nestjs/common';
+import {
+  ExceptionFilter,
+  Catch,
+  ArgumentsHost,
+  HttpException,
+  HttpStatus,
+} from '@nestjs/common';
 import { LoggerService } from '../../services';
 import { LogCode } from '../../../types';
 
@@ -22,7 +28,7 @@ export class AllExceptionsFilter implements ExceptionFilter {
       error: exception,
       url: request.originalUrl,
       method: request.method,
-      code: LogCode.EXCEPTION
+      code: LogCode.EXCEPTION,
     });
 
     response.sendStatus(status);

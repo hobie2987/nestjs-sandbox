@@ -5,7 +5,6 @@ import { LogMessage } from '../../../types';
 
 @Controller('log')
 export class LogController {
-
   constructor(private logger: LoggerService) {}
 
   @Post()

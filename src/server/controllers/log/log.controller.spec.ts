@@ -34,7 +34,6 @@ describe('LogController', () => {
   });
 
   describe('POST /log', () => {
-
     beforeEach(() => {
       controller.log(request, response);
     });

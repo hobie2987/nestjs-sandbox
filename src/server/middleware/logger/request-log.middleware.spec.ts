@@ -45,7 +45,7 @@ describe('RequestLogMiddleware', () => {
       agent: undefined,
       token: '-',
       correlationId: undefined,
-    })
+    });
   });
 
   describe('And the User-Agent header exists', () => {
@@ -70,14 +70,16 @@ describe('RequestLogMiddleware', () => {
         agent: 'Secret Agent',
         token: '-',
         correlationId: undefined,
-      })
+      });
     });
   });
 
   describe('When the Correlation ID header exists on the request', () => {
     beforeEach(() => {
       request.get.mockImplementation((headerName) => {
-        return headerName === 'X-Correlation-Id' ? 'Request Header ID' : undefined;
+        return headerName === 'X-Correlation-Id'
+          ? 'Request Header ID'
+          : undefined;
       });
       middleware.use(request, response, next);
     });
@@ -96,14 +98,16 @@ describe('RequestLogMiddleware', () => {
         agent: undefined,
         token: '-',
         correlationId: 'Request Header ID',
-      })
+      });
     });
   });
 
   describe('When the Correlation ID header exists on the response', () => {
     beforeEach(() => {
       response.get.mockImplementation((headerName) => {
-        return headerName === 'X-Correlation-Id' ? 'Response Header ID' : undefined;
+        return headerName === 'X-Correlation-Id'
+          ? 'Response Header ID'
+          : undefined;
       });
       middleware.use(request, response, next);
     });
@@ -122,7 +126,7 @@ describe('RequestLogMiddleware', () => {
         agent: undefined,
         token: '-',
         correlationId: 'Response Header ID',
-      })
+      });
     });
   });
 
@@ -130,12 +134,12 @@ describe('RequestLogMiddleware', () => {
     beforeEach(() => {
       request.cookies = {
         'XSRF-TOKEN': 'Token',
-      }
+      };
       middleware.use(request, response, next);
     });
 
     afterAll(() => {
-     request.cookies = {};
+      request.cookies = {};
     });
 
     it('Should capture the value of the XSRF-TOKEN cookie', () => {
@@ -148,7 +152,7 @@ describe('RequestLogMiddleware', () => {
         agent: undefined,
         token: 'Token',
         correlationId: undefined,
-      })
+      });
     });
   });
 
