@@ -1,17 +1,17 @@
 import {
   Controller,
   Get,
-  Next,
-  Post,
+  // Next,
+  // Post,
   Request,
   Response,
-  UseInterceptors,
+  // UseInterceptors,
 } from '@nestjs/common';
 import {
   renderPlaygroundPage,
   RenderPageOptions,
 } from '@apollographql/graphql-playground-html';
-import { AuthHeadersInterceptor } from '../interceptors/auth-headers.interceptor';
+// import { AuthHeadersInterceptor } from '../interceptors/auth-headers.interceptor';
 
 @Controller('graphql')
 export class PlaygroundController {
