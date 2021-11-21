@@ -13,6 +13,15 @@
     "outDir": "./dist",
     "baseUrl": "./",
     "incremental": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "paths": {
+      "@app": ["src/server/modules/app"],
+      "@graphql": ["src/server/modules/graphql"],
+      "@http": ["src/server/modules/http"],
+      "@logger": ["src/server/modules/logger"],
+      "@modules": ["src/server/modules"],
+      "@utils": ["src/server/modules/http"],
+      "@xsrf": ["src/server/modules/xsrf"]
+    }
   }
 }

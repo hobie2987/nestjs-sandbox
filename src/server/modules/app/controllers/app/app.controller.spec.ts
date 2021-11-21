@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppController } from './app.controller';
-import * as fs from 'fs';
+import fs from 'fs';
+jest.mock('fs');
 
 describe('AppController', () => {
   let appController: AppController;

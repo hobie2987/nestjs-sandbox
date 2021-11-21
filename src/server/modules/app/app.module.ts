@@ -7,11 +7,10 @@ import {
 import { APP_FILTER } from '@nestjs/core';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
-import { GqlModule, XsrfModule } from '../';
-import { LoggerModule } from '../logger';
-import { AppController } from './controllers';
-import { AllExceptionsFilter } from './filters';
-import { SessionIdMiddleware } from './middleware';
+import { GqlModule, XsrfModule, LoggerModule } from '@modules';
+import { AppController } from './controllers/app/app.controller';
+import { AllExceptionsFilter } from './filters/all-exceptions/all-exceptions.filter';
+import { SessionIdMiddleware } from './middleware/session-id/session-id.middleware';
 
 @Module({
   imports: [

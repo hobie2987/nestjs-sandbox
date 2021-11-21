@@ -1,17 +1,8 @@
-import {
-  Controller,
-  Get,
-  // Next,
-  // Post,
-  Request,
-  Response,
-  // UseInterceptors,
-} from '@nestjs/common';
+import { Controller, Get, Request, Response } from '@nestjs/common';
 import {
   renderPlaygroundPage,
   RenderPageOptions,
 } from '@apollographql/graphql-playground-html';
-// import { AuthHeadersInterceptor } from '../interceptors/auth-headers.interceptor';
 
 @Controller('graphql')
 export class PlaygroundController {
@@ -38,8 +29,8 @@ export class PlaygroundController {
       },
     };
 
-    const playground = renderPlaygroundPage(options);
-    response.send(playground);
+    const playgroundHtml = renderPlaygroundPage(options);
+    response.send(playgroundHtml);
   }
 
   // @Post()

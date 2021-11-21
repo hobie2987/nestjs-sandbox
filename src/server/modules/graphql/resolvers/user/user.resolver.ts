@@ -8,11 +8,11 @@ export class UserResolver {
 
   @Query(() => [User])
   async users(@Context() context): Promise<User[]> {
-    return this.userService.getUsers();
+    return await this.userService.getUsers();
   }
 
   @Query(() => User)
   async user(@Args('id') id: number, @Context() context): Promise<User> {
-    return this.userService.getUser(id);
+    return await this.userService.getUser(id);
   }
 }

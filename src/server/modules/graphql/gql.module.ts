@@ -4,7 +4,7 @@ import { GraphqlContext } from './context/graphql.context';
 import { PlaygroundController } from './controllers/playground.controller';
 import { UserService } from './services/user/user.service';
 import { UserResolver } from './resolvers/user/user.resolver';
-import { HttpWrapperModule } from '../http';
+import { HttpWrapperModule } from '@http';
 
 @Module({
   imports: [

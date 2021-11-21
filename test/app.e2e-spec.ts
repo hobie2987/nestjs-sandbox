@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import request from 'supertest';
-import { AppModule } from '../src/server/app.module';
+import { AppModule } from '../src/server/modules/app';
 import cookieParser from 'cookie-parser';
 
 describe('AppController (e2e)', () => {

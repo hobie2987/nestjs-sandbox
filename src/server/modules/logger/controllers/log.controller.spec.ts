@@ -1,8 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { HttpStatus } from '@nestjs/common';
 import { LogController } from './log.controller';
-import { LoggerService } from '../../services';
-import { LogCode, LogMessage } from '../../../types';
+import { LoggerService } from '../services/logger.service';
+import { LogMessage, LogCode } from '../types/log';
 
 describe('LogController', () => {
   let controller: LogController;

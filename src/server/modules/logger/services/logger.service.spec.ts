@@ -1,6 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { LoggerService } from './logger.service';
 import { LogCode, LogLevel, LogMessage } from '../types/log';
+import colorize from 'json-colorizer';
+
+jest.mock('json-colorizer');
 
 describe('LoggerService', () => {
   let logger: LoggerService;
@@ -10,8 +13,10 @@ describe('LoggerService', () => {
   };
 
   const validate = (level: LogLevel) => {
-    const expected = { ...message, ...{ level } };
-    expect(console[level]).toHaveBeenCalledWith(JSON.stringify(expected));
+    const expected = JSON.stringify({ ...message, ...{ level } });
+    expect(console[level]).toHaveBeenCalledWith(
+      colorize(expected, logger.colorConfig),
+    );
   };
 
   beforeEach(async () => {
