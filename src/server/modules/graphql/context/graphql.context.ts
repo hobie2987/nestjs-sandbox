@@ -1,4 +1,4 @@
-import crypto from 'crypto';
+import { OAuthUtils } from '../../utils';
 
 export async function GraphqlContext(context): Promise<any> {
   const { headers, body } = context.req;
@@ -8,7 +8,7 @@ export async function GraphqlContext(context): Promise<any> {
    * We do not need to add the "Authorization" header for this request.
    */
   if (body.operationName !== 'IntrospectionQuery') {
-    const token = crypto.randomBytes(255).toString('base64');
+    const token = await OAuthUtils.getToken();
     headers.authorization = `Bearer ${token}`;
   }
 
