@@ -32,10 +32,4 @@ export class PlaygroundController {
     const playgroundHtml = renderPlaygroundPage(options);
     response.send(playgroundHtml);
   }
-
-  // @Post()
-  // @UseInterceptors(AuthHeadersInterceptor)
-  // graphql(@Next() next): void {
-  //   next();
-  // }
 }
