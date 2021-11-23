@@ -20,8 +20,8 @@
       "@http": ["src/server/modules/http"],
       "@logger": ["src/server/modules/logger"],
       "@modules": ["src/server/modules"],
-      "@utils": ["src/server/modules/http"],
-      "@xsrf": ["src/server/modules/xsrf"]
+      "@utils": ["src/server/modules/utils"],
+      "@xsrf": ["src/server/modules/xsrf"],
     }
   }
 }
