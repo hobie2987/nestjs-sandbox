@@ -1,6 +1,6 @@
 import { AsyncSubject, firstValueFrom, interval } from 'rxjs';
 import crypto from 'crypto';
-import { wait } from '@utils';
+import { wait } from '../promises';
 
 class OAuthUtils {
   readonly token: AsyncSubject<string>;
