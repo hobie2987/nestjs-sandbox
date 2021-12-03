@@ -1,18 +1,18 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './server/modules/app';
+import { AppModule, AppOptions } from '@app';
 import cookieParser from 'cookie-parser';
-import helmet from 'helmet';
 import nocache from 'nocache';
 import compression from 'compression';
+import dotenv from 'dotenv';
 
-async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+async function bootstrap(): Promise<void> {
+  const env = dotenv.config().parsed;
+  const app = await NestFactory.create(AppModule, AppOptions);
   app.use(cookieParser());
   app.use(nocache());
-  app.use(/^(?!\/graphql)/, helmet());
   app.use(compression());
-  await app.listen(8080, () => {
-    console.log('Server started @ http://localhost:8080/');
+  await app.listen(env.PORT, () => {
+    console.log(`Server started @ ${env.HOST}:${env.PORT}/`);
   });
 }
 bootstrap();
