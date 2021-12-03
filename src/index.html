@@ -1,11 +1,27 @@
 <!DOCTYPE html>
 <html lang="en-US">
-    <head>
-        <meta charset="UTF-8">
-        <base href="/">
-        <title>NestJS App</title>
-    </head>
-    <body>
-        <h1>Hello World</h1>
-    </body>
+<head>
+  <meta charset="UTF-8">
+  <base href="/">
+  <title>NestJS App</title>
+  <script src="/vendor.js"></script>
+
+  <script>
+    fetch("/log", {
+      method: "POST",
+      headers: {
+        'X-XSRF-TOKEN': Cookies.get('XSRF-TOKEN'),
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+          code: 'C01',
+          message: 'Test of client side logging'
+      })
+    });
+  </script>
+
+</head>
+<body>
+<h1>Hello World</h1>
+</body>
 </html>
