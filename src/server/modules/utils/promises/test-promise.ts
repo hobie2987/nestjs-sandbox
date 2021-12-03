@@ -2,12 +2,12 @@ import { retry } from './';
 
 let number = 10;
 
-const doWork = async () => {
+function doWork(resolve, reject): void {
   console.log(number);
-  return --number ? Promise.reject(number) : number;
-};
+  return --number ? reject(number) : resolve(number);
+}
 
-retry(doWork, 9)
+retry(doWork, 8)
   .then((num) => {
     console.log(`Done: ${num}`);
   })
