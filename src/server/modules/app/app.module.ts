@@ -6,11 +6,11 @@ import {
 } from '@nestjs/common';
 import { APP_FILTER } from '@nestjs/core';
 import { ServeStaticModule } from '@nestjs/serve-static';
-import { join } from 'path';
 import { GqlModule, XsrfModule, LoggerModule } from '@modules';
 import { AppController } from './controllers/app/app.controller';
 import { AllExceptionsFilter } from './filters/all-exceptions/all-exceptions.filter';
 import { SessionIdMiddleware } from './middleware/session-id/session-id.middleware';
+import { HelmetMiddleware } from './middleware/helmet/helmet.middleware';
 
 @Module({
   imports: [
@@ -18,7 +18,7 @@ import { SessionIdMiddleware } from './middleware/session-id/session-id.middlewa
     LoggerModule,
     XsrfModule,
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'assets'),
+      rootPath: `dist/assets`,
     }),
   ],
   controllers: [AppController],
@@ -27,7 +27,8 @@ import { SessionIdMiddleware } from './middleware/session-id/session-id.middlewa
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer): any {
     consumer
-      .apply(SessionIdMiddleware)
+      .apply(SessionIdMiddleware, HelmetMiddleware)
+      .exclude('graphql')
       .forRoutes({ path: '*', method: RequestMethod.ALL });
   }
 }
