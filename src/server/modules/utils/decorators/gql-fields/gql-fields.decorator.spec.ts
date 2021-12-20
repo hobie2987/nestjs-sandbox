@@ -1,4 +1,5 @@
 import { ROUTE_ARGS_METADATA } from '@nestjs/common/constants';
+import { GqlExecutionContext } from '@nestjs/graphql';
 import graphqlFields from 'graphql-fields';
 jest.mock('graphql-fields', () => jest.fn());
 import { GqlFields } from './gql-fields.decorator';
@@ -6,17 +7,10 @@ import { GqlFields } from './gql-fields.decorator';
 describe('GqlFields Decorator', () => {
   let factory: any;
   const parsedFields = { id: {}, name: {}, username: {} };
-  const args = [
-    undefined,
-    {},
-    { req: {}, res: {} },
-    {
-      fieldName: 'users',
-      parentType: { name: 'Query' },
-      schema: {},
-    },
-  ];
-  const context = { getArgs: jest.fn() };
+  const context = {};
+  const MockGqlExecutionContext = {
+    getInfo: jest.fn(),
+  } as any;
 
   const getParamDecoratorFactory = (decorator: any): ((...args) => any) => {
     class Test {
@@ -28,6 +22,9 @@ describe('GqlFields Decorator', () => {
   };
 
   beforeEach(() => {
+    jest
+      .spyOn(GqlExecutionContext, 'create')
+      .mockReturnValue(MockGqlExecutionContext);
     graphqlFields.mockReturnValue(parsedFields);
     factory = getParamDecoratorFactory(GqlFields);
   });
@@ -50,12 +47,12 @@ describe('GqlFields Decorator', () => {
 
     describe('And the execution context contains the query info', () => {
       beforeEach(() => {
-        context.getArgs.mockReturnValue(args);
+        MockGqlExecutionContext.getInfo.mockReturnValue({});
         actual = factory({}, context);
       });
 
       it('Should pass the info graphql-fields', () => {
-        expect(graphqlFields).toHaveBeenCalledWith(args[3]);
+        expect(graphqlFields).toHaveBeenCalled();
       });
 
       it('Should return the parsed fields', () => {
@@ -65,7 +62,7 @@ describe('GqlFields Decorator', () => {
 
     describe('And the execution context does NOT contains the query info', () => {
       beforeEach(() => {
-        context.getArgs.mockReturnValue([undefined, {}, { req: {}, res: {} }]);
+        MockGqlExecutionContext.getInfo.mockReturnValue(undefined);
         actual = factory({}, context);
       });
 
