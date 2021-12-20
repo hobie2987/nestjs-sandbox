@@ -1,4 +1,4 @@
-const URLS = {
+export const URLS: Readonly<any> = {
   USERS: 'https://jsonplaceholder.typicode.com/users',
 };
 
