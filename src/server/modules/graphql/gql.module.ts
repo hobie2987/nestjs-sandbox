@@ -5,6 +5,8 @@ import { PlaygroundController } from './controllers/playground.controller';
 import { UserService } from './services/user/user.service';
 import { UserResolver } from './resolvers/user/user.resolver';
 import { HttpWrapperModule } from '@http';
+import { GraphqlPlugins } from './plugins/graphql.plugins';
+import { LoggerModule } from '@logger';
 
 @Module({
   imports: [
@@ -13,8 +15,9 @@ import { HttpWrapperModule } from '@http';
       context: GraphqlContext,
     }),
     HttpWrapperModule,
+    LoggerModule,
   ],
   controllers: [PlaygroundController],
-  providers: [UserService, UserResolver],
+  providers: [GraphqlPlugins, UserService, UserResolver],
 })
 export class GqlModule {}
