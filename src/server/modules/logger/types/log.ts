@@ -10,6 +10,7 @@ export enum LogCode {
   EXCEPTION = 1,
   HTTP_SUCCESS = 2,
   HTTP_FAILURE = 3,
+  GRAPHQL_ERROR = 4,
 }
 
 export interface LogMessage {
