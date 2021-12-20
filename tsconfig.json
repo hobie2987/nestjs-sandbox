@@ -22,6 +22,7 @@
       "@modules": ["src/server/modules"],
       "@utils": ["src/server/modules/utils"],
       "@xsrf": ["src/server/modules/xsrf"],
+      "@decorators": ["src/server/modules/utils/decorators"]
     }
   }
 }
