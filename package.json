@@ -44,7 +44,7 @@
     "graphql-fields": "^2.0.3",
     "helmet": "^4.6.0",
     "json-colorizer": "^2.2.2",
-    "mongoose": "^6.0.13",
+    "mongoose": "^6.4.6",
     "nocache": "^3.0.1",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
